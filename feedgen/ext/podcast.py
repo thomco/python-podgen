@@ -212,7 +212,7 @@ class PodcastExtension(BaseExtension):
 		the podcast.
 
 		:param itunes_complete: If the podcast is complete.
-		:type itunes_complete: bool
+		:type itunes_complete: bool or str
 		:returns: If the podcast is complete.
 		'''
 		if not itunes_complete is None:
@@ -235,7 +235,7 @@ class PodcastExtension(BaseExtension):
 		the directory with the new feed URL.
 
 		:param itunes_new_feed_url: New feed URL.
-		:type itunes_new_feed_url: bool
+		:type itunes_new_feed_url: str
 		:returns: New feed URL.
 		'''
 		if not itunes_new_feed_url is None:
