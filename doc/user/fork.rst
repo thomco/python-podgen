@@ -15,13 +15,13 @@ to skip to :doc:`basic_usage_guide/part_1`.
 Inspiration
 -----------
 
-The reason I felt like making such drastic changes, is that the original library is
-**exceptionally hard to learn** and use. Error messages would not tell you what was wrong,
-the concept of extensions is poorly explained and the methods are a bit weird, in that
-they function as getters and setters at the same time. The fact that you have three
-separate ways to go about setting multi-value variables is also a bit confusing.
+The python-feedgen_ project is alright for creating general RSS and ATOM feeds,
+especially in situations where you'd like to serve the same content in those two
+formats. However, I wanted to create podcasts, and found myself struggling with
+getting the library to do what I wanted to do, and I frequently found myself
+looking at the source to understand what was going on.
 
-Perhaps the biggest problem, though, is the awkwardness that stems from enabling
+Perhaps the biggest problem is the awkwardness that stems from enabling
 RSS and ATOM feeds through the same API. In case you don't know, ATOM is a
 competitor to RSS, and has many more capabilities than RSS. However, it is
 not used for podcasting. The result of mixing both ATOM and RSS include methods that will map an ATOM value to
@@ -30,10 +30,10 @@ the value of the RSS property ``copyright``) and some differ in subtle ways (lik
 (ATOM) ``logo`` versus (RSS) ``image``). Other methods are more complex (see ``link``). They're all
 confusing, though, since changing one property automatically changes another implicitly.
 They also cause bugs, since it is so difficult to wrap your head around how one
-interact with another.
-Removing ATOM support fixes all these issues.
+interact with another. This is the inspiration for forking python-feedgen_ and
+rewrite the API, without mixing the different standards.
 
-Even then, python-feedgen_ aims at being comprehensive, and gives you a one-to-one
+Futhermore, python-feedgen_ gives you a one-to-one
 mapping to the resulting XML elements. This means that you must
 learn the RSS and podcast standards, which include many legacy elements you
 don't really need. For example, the original RSS spec
@@ -45,30 +45,12 @@ I believe **the API should help guide the users** by hiding the legacy image tag
 and you as a user shouldn't need to know all this. You just need to know that the
 image must be larger than 1400x1400 pixels, not the history behind everything.
 
-Alignment with the philosophies
--------------------------------
-
-python-feedgen_'s code breaks all the philosophies listed in the :doc:`introduction`:
-
-#. Beautiful is better than ugly, yet all properties are set through hybrid
-   setter/getter methods.
-#. Explicit is better than implicit, yet changing one property will cause
-   changes to other properties implicitly.
-#. Simple is better than complex, yet creating podcasts requires that you
-   load an extension, and somehow figure out that this extension's methods
-   are available as methods of the extension's name, which suddenly is
-   available as a property of your FeedGenerator object.
-#. Complex is better than complicated, yet an entire framework is built to
-   handle extensions, rather than using class inheritance. (Said framework
-   even requires that the extension resides inside a specific folder!)
-#. Readability counts, yet classes are named after their function and not what
-   they represent, and (again) properties are set through methods.
-
-In short, the **original project breaks all the idioms listed in Philosophy**, and
-fixing it would require changes too big or too dramatic to be applied upstream.
-
-Whenever a change *is* appropriate for upstream, however, we should strive to
-bring it there, so it can benefit **everyone**.
+Forking a project gives you a lot of freedom, since you don't have to support
+any old behaviour. python-feedgen_ cannot make backwards incompatible changes,
+since many projects around the earth rely on the way the library works, and you
+cannot expect everyone to use ``pip freeze`` (you should, though!). Whenever a
+change *is* appropriate for python-feedgen_, however, we should strive to bring
+it there so it can benefit as many as possible :)
 
 
 Summary of changes
@@ -111,7 +93,7 @@ The following list is not exhaustive.
 * :attr:`.Podcast.explicit` is now required, and is :obj:`bool`.
 * Add shorthand for generating the RSS: Just try to converting your :class:`~podgen.Podcast`
   object to :obj:`str`!
-* Improve the documentation (as you've surely noticed).
+* Expand the documentation (as you've surely noticed).
 * Move away from the extension framework, and rely on class inheritance instead.
 
 .. _python-feedgen: https://github.com/lkiesow/python-feedgen
