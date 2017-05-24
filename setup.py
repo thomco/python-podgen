@@ -7,7 +7,7 @@ setup(
         name = 'podgen',
         packages = ['podgen'],
         # Remember to update the version in podgen.version, too!
-        version = '1.0.0b5',
+        version = '1.0.0',
         description = 'Generating podcasts with Python should be easy!',
         author = 'Thorben W. S. Dahl',
         author_email = 'thorben@sjostrom.no',
@@ -17,7 +17,7 @@ setup(
         install_requires = ['lxml', 'dateutils', 'future', 'pytz', 'tinytag',
                             'requests'],
         classifiers = [
-            'Development Status :: 4 - Beta',
+            'Development Status :: 5 - Production/Stable',
             'Intended Audience :: Developers',
             'Intended Audience :: Information Technology',
             'Intended Audience :: Science/Research',
