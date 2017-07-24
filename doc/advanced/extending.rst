@@ -85,12 +85,9 @@ Using traditional inheritance
             # Initialize the ttl value
             self.__ttl = None
 
-            # Has the user passed in ttl value as a keyword?
-            if 'ttl' in kwargs:
-                self.ttl = kwargs['ttl']
-                kwargs.pop('ttl')  # avoid TypeError from super()
-
-            # Call Podcast's constructor
+            # Call Podcast's constructor (this will set ttl using setattr if
+            # given as argument to the constructor, hence why self.__ttl is
+            # defined before we do this)
             super().__init__(*args, **kwargs)
 
             # If we were to use another namespace, we would add this here:
@@ -147,10 +144,11 @@ Using traditional inheritance
             return rss
 
     # How to use the new class (normally, you would put this somewhere else)
-    myPodcast = PodcastWithTtl(name="Test", website="http://example.org",
-                               explicit=False, description="Testing ttl")
-    myPodcast.ttl = 90  # or set ttl=90 in the constructor
-    print(myPodcast)
+    if __name__ == '__main__':
+        myPodcast = PodcastWithTtl(name="Test", website="http://example.org",
+                                   explicit=False, description="Testing ttl")
+        myPodcast.ttl = 90  # or set ttl=90 in the constructor
+        print(myPodcast)
 
 
 Using mixins
