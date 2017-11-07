@@ -441,10 +441,10 @@ class Podcast(object):
         channel = etree.SubElement(feed, 'channel')
         if not (self.name and self.website and self.description
                 and self.explicit is not None):
-            missing = ', '.join(([] if self.name else ['title']) +
-                                ([] if self.website else ['link']) +
+            missing = ', '.join(([] if self.name else ['name']) +
+                                ([] if self.website else ['website']) +
                                 ([] if self.description else ['description']) +
-                                ([] if self.explicit else ['itunes_explicit']))
+                                ([] if self.explicit is not None else ['explicit']))
             raise ValueError('Required fields not set (%s)' % missing)
         title = etree.SubElement(channel, 'title')
         title.text = self.name
