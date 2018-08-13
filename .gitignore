@@ -16,3 +16,4 @@ venv
 /build
 /podgen.egg-info
 
+.vscode/
